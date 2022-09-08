@@ -1,6 +1,29 @@
 import React from 'react';
 
 function App() {
+  //FUNCION GENERAR CONTRASEÑAS
+  function generarPassword() {
+    var pass = document.getElementById('password');
+    var caracteres = "abcdefghijkmnpqrtuvwxyzABCDEFGHIJKLMNPQRTUVWXYZ012346789" +
+    "@#$%&/()=?¡!¿+*-_.:,;{}[]";
+    var tamanoPass = 16;
+    var password = "";
+    for (var i = 0; i < tamanoPass; i++) {  
+        var random = Math.floor(Math.random() * caracteres.length);
+        password += caracteres.substring(random, random + 1);
+    }
+    pass.value = password;
+  } 
+
+  //COPIAR EL PASSWORD
+  function copiarPassword() {
+    var passCopiar = document.getElementById('password');
+    if (!passCopiar.value) {
+        alert("Porfavor genere el password"); return;
+    }
+    passCopiar.select();
+    document.execCommand("copy");   
+  }
   return (
     <div
       className="w-full h-screen grid content-center
@@ -51,7 +74,8 @@ function App() {
             </a>
         </div>
         <div className='flex justify-around mt-5'>
-          <button 
+          <button
+            onClick={generarPassword}
             type="button"
             className='bg-gradient-to-r from-btnGrad via-btnGrad2 to-btnGrad3
             text-white font-Sans-Pro border-0 rounded-lg py-1 px-2 sm:px-6 focus:outline-none
@@ -59,7 +83,8 @@ function App() {
           >
             Generate password
           </button>
-          <button 
+          <button
+            onClick={copiarPassword} 
             type="button"
             className='bg-gradient-to-r from-btnGrad via-btnGrad2 to-btnGrad3
             text-white font-Sans-Pro border-0 rounded-lg py-1 px-5 sm:px-10 focus:outline-none
